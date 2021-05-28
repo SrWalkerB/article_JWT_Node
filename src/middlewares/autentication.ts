@@ -2,10 +2,15 @@ import { Request, Response, NextFunction } from "express"
 import TokensOptions from "../helpers/TokensOptions"
 
 const autentication = (req: Request, resp: Response, next: NextFunction) => {
-    const token = req.header("Authorization")!.replace("Bearer ", "")
-    const verifyToken = TokensOptions.verifyToken(token)
+    const token = req.header("Authorization")
 
-    if(verifyToken.message != "success"){
+    if(!token){
+        return resp.status(401).json({ message: "Unauthorized" })
+    }
+
+    const verifyToken = TokensOptions.verifyToken(token.replace("Bearer ", ""))
+
+    if(verifyToken.message == "invalid token"){
         return resp.status(401).json({ message: "Unauthorized" })
     }
     

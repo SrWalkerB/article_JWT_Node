@@ -26,7 +26,10 @@ export default new class UserControllers{
 
     profile(req: Request, resp: Response){
         try {
-            return resp.status(200).json({ message: "my profile" })
+            const token = req.header("Authorization")
+            const { id } = TokensOptions.verifyToken(token!?.replace("Bearer ", "")).message
+
+            return resp.status(200).json({ message: `my profile: ${id}` })
         } catch (error) {
             console.log(error)
             return resp.status(500).json({ message: "error not expect" })
