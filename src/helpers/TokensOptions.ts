@@ -2,7 +2,7 @@ import { Request } from "express"
 import jwt from "jsonwebtoken"
 
 export default new class TokenOptions{
-    generatedToken(id: string){
+    generateToken(id: string){
         return jwt.sign({ id: id }, process.env.TOKEN_KEY!, { expiresIn: "5h" })
     }
 

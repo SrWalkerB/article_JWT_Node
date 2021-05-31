@@ -16,7 +16,7 @@ export default new class UserControllers{
                 return resp.status(404).json({  message: "user not found" })
             }
 
-            const token = TokensOptions.generatedToken(fakeDatabase.id)
+            const token = TokensOptions.generateToken(fakeDatabase.id)
             return resp.status(200).json({ message: token })
         } catch (error) {
             console.log(error)
