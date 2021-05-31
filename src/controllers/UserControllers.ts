@@ -26,8 +26,8 @@ export default new class UserControllers{
 
     profile(req: Request, resp: Response){
         try {
-            const token = req.header("Authorization")
-            const { id } = TokensOptions.verifyToken(token!?.replace("Bearer ", "")).message
+            const token = TokensOptions.getToken(req)
+            const { id } = TokensOptions.verifyToken(token!).message
 
             return resp.status(200).json({ message: `my profile: ${id}` })
         } catch (error) {
